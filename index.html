@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Save Leaflet Map to PNG</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="Leaflet/dist/leaflet.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="Leaflet/dist/leaflet.ie.css" /><![endif]-->
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="js/html2canvas.min.js"></script>
+	<script src="js/jquery.plugin.html2canvas.js"></script>
+	
+	
+	<script>
+		$(function() {
+		
+			$('#btnSaveMap').click(function() {
+				
+				setTimeout(function() {
+					$('#map').html2canvas({
+						flashcanvas: "js/flashcanvas.min.js",
+						logging: false,
+						profile: false,
+						useCORS: true
+					});
+				}, 1000);
+				
+			});
+
+		});
+		
+		function manipulateCanvasFunction(savedMap) {
+			dataURL = savedMap.toDataURL("image/png");
+			dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+			$.post("ajax/saveMap.php", { savedMap: dataURL }, function(data) {
+				alert('Image Saved to : ' + data);
+			});
+		}
+		
+	</script>
+	
+</head>
+<body>
+
+	<a href="#" id="btnSaveMap" style="border: 1px solid #66CC66; padding: 5px; background-color:#D9F2E6; display: block; text-align:center; text-decoration: none; width: 250px; margin-bottom:15px;">Save this to a png</a>
+
+	<div id="map" style="width: 600px; height: 400px"></div>
+
+	<script src="Leaflet/dist/leaflet.js"></script>
+	
+	<script>
+		var map = new L.Map('map');
+
+		var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+			cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+			cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+
+		map.setView(new L.LatLng(51.505, -0.09), 13).addLayer(cloudmade);
+
+		var markerLocation = new L.LatLng(51.5, -0.09);
+		var marker = new L.Marker(markerLocation);
+
+		map.addLayer(marker);
+		
+	</script>
+	
+	
+	
+</body>
+</html>

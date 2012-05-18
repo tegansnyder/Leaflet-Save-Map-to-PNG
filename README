@@ -1,0 +1,20 @@
+Saving a Leaflet Map to a PNG Example using Javascript and PHP
+=============================================================================
+
+This is an example of taking a Leaflet map and saving it to a PNG.
+
+To run the source example unzip the files into a directory on your webserver. 
+Make sure to CHMOD the savedMaps directory 777.
+
+Load it up in a web browser and click the "Save to PNG button". Give it a few seconds.
+
+
+=============================================================================
+
+Many thanks to:
+
+html2canvas by Niklas von Hertzen
+https://github.com/niklasvh/html2canvas
+
+Jamund Ferguson
+http://j-query.blogspot.com/2011/02/save-base64-encoded-canvas-image-to-png.html
