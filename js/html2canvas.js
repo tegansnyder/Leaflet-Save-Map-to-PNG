@@ -685,7 +685,10 @@ html2canvas.Parse = function (element, images, opts) {
                 }
             
                 if (textValue !== null){
-                    drawText(textValue, bounds.left, bounds.bottom, ctx);
+                    if(L.Browser.gecko3d)
+                        drawText(textValue, bounds.left + el._leaflet_pos.x, bounds.bottom + el._leaflet_pos.y, ctx);
+                    else
+                        drawText(textValue, bounds.left, bounds.bottom, ctx);
                 }
 
                 switch(text_decoration) {
